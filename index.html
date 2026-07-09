@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Baú Country | Tradição e Estilo no Campo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CONFIGURAÇÕES DE TEMA COUNTRY */
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+      
+      /* PARTE EDITADA: Imagem de Fundo Ativada */
+      background-image: url('fundo_textura.jpg'); 
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed; /* A imagem fica parada enquanto o site sobe */
+      background-position: center;
+      background-color: #1a0f00; /* Cor de fundo caso a imagem falhe */
+      
+      color: #f5f5f4; 
+      font-family: 'Roboto Slab', serif;
+      scroll-behavior: smooth;
+    }
+
+    .logo-anim {
+      transition: all 0.2s ease-out;
+      will-change: transform, opacity;
+    }
+
+    #track::-webkit-scrollbar { display: none; }
+    
+    /* Indicador do Carrossel (Âmbar/Ouro) */
+    .dot { transition: all 0.3s ease; }
+    .dot.active { background-color: #f59e0b; width: 1.5rem; } 
+    
+    /* Estilo das Setas do Carrossel */
+    .nav-btn {
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    #carousel-area:hover .nav-btn {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen overflow-x-hidden relative">
+    
+    <div class="fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(251,191,36,0.15),_transparent_35%)] pointer-events-none"></div>
+    
+    <div class="fixed left-3 top-3 h-[96%] w-[calc(100%-24px)] rounded-[36px] border border-amber-900/40 pointer-events-none z-50"></div>
+
+    <div class="relative mx-auto flex min-h-screen w-full max-w-md flex-col items-center justify-start p-4 pt-12">
+      
+      <div class="w-full rounded-[36px] border border-amber-900/40 bg-stone-950/90 px-6 py-8 shadow-[0_0_60px_rgba(120,53,15,0.4)] backdrop-blur-md">
+        
+        <div class="text-center">
+          <div class="mb-0 flex justify-center overflow-visible sticky top-0 z-50">
+            <img id="logo" src="bau_country_logo.png" alt="Baú Country" class="w-[450px] logo-anim object-contain" 
+                 style="filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.45));">
+          </div>
+
+          <h1 class="-mt-6 bg-gradient-to-b from-stone-100 via-amber-200 to-amber-600 bg-clip-text text-2xl font-black tracking-tight text-transparent uppercase">
+            O melhor da moda country
+          </h1>
+          
+          <p class="mt-2 text-xs font-semibold uppercase tracking-[0.15em] text-amber-100/90">Tradição e qualidade em cada detalhe.</p>
+          
+          <div class="mx-auto mt-4 h-[1px] w-40 bg-gradient-to-r from-transparent via-amber-600/70 to-transparent"></div>
+        </div>
+
+        <div class="mt-10 space-y-4">
+          <a href="https://wa.me/55199XXXXXXXX" class="relative group flex items-center justify-center rounded-xl border border-amber-700/60 bg-gradient-to-r from-[#2a1b0a] via-[#3a2c1a] to-[#2a1b0a] px-5 py-4 text-[12px] font-bold text-amber-50 shadow-lg active:scale-95 transition-all">
+            <img src="icons/whatsapp.png" class="absolute left-3 h-7 w-7 object-contain" alt="">
+            <span>SOLICITAR CATÁLOGO NO WHATSAPP</span>
+          </a>
+
+          <a href="https://instagram.com/baucountry/" class="relative group flex items-center justify-center rounded-xl border border-stone-600/50 bg-stone-900/85 px-5 py-4 text-[12px] font-semibold text-amber-50 active:scale-95 transition-all">
+            <img src="icons/instagram.png" class="absolute left-3 h-7 w-7 object-contain" alt="">
+            <span>VER NOVIDADES NO INSTAGRAM</span>
+          </a>
+
+          <a href="#" class="relative group flex items-center justify-center rounded-xl border border-stone-600/50 bg-stone-900/85 px-5 py-4 text-[12px] font-semibold text-amber-50 active:scale-95 transition-all">
+            <img src="icons/mapa.png" class="absolute left-3 h-7 w-7 object-contain" alt="">
+            <span>COMO CHEGAR NA LOJA</span>
+          </a>
+
+          <a href="#" class="relative group flex items-center justify-center rounded-xl border border-stone-600/50 bg-stone-900/85 px-5 py-4 text-[12px] font-semibold text-amber-50 active:scale-95 transition-all">
+            <img src="icons/catalogo.png" class="absolute left-3 h-7 w-7 object-contain" alt="">
+            <span>LINHA DE BOTAS EXCLUSIVAS</span>
+          </a>
+        </div>
+
+        <div id="produtos" class="mt-10 border-t border-amber-900/20 pt-6">
+          <div class="text-center mb-6">
+            <h2 class="text-xl font-black tracking-tight text-amber-200 uppercase">Nossas Categorias</h2>
+            <div class="mx-auto mt-2 h-[1px] w-20 bg-amber-400/50"></div>
+          </div>
+
+          <div class="group relative overflow-hidden rounded-[28px] border border-amber-900/30 bg-stone-900/70 p-3" id="carousel-area">
+            
+            <button onclick="prev()" class="nav-btn absolute left-5 top-1/2 z-30 -translate-y-1/2 rounded-full bg-stone-950/60 p-2 text-amber-400 hover:bg-amber-600 hover:text-white backdrop-blur-md border border-amber-800/40">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            <button onclick="next()" class="nav-btn absolute right-5 top-1/2 z-30 -translate-y-1/2 rounded-full bg-stone-950/60 p-2 text-amber-400 hover:bg-amber-600 hover:text-white backdrop-blur-md border border-amber-800/40">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" /></svg>
+            </button>
+
+            <div id="track" class="flex transition-transform duration-700 ease-out" style="transform: translateX(0%)">
+              <div class="relative min-w-full overflow-hidden rounded-[22px]">
+                <img src="bota.jpg" class="h-64 w-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4 text-left">
+                  <h3 class="text-lg font-black text-stone-100 uppercase">Botas de Couro</h3>
+                </div>
+              </div>
+              <div class="relative min-w-full overflow-hidden rounded-[22px]">
+                <img src="chapeu.jpg" class="h-64 w-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4 text-left">
+                  <h3 class="text-lg font-black text-stone-100 uppercase">Chapéus</h3>
+                </div>
+              </div>
+              <div class="relative min-w-full overflow-hidden rounded-[22px]">
+                <img src="cinto.jpg" class="h-64 w-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4 text-left">
+                  <h3 class="text-lg font-black text-stone-100 uppercase">Cintos e Fivelas</h3>
+                </div>
+              </div>
+              <div class="relative min-w-full overflow-hidden rounded-[22px]">
+                <img src="camisa.jpg" class="h-64 w-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4 text-left">
+                  <h3 class="text-lg font-black text-stone-100 uppercase">Moda Sertaneja</h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 flex justify-center gap-2">
+            <div class="dot active h-2 w-2 rounded-full bg-stone-700"></div>
+            <div class="dot h-2 w-2 rounded-full bg-stone-700"></div>
+            <div class="dot h-2 w-2 rounded-full bg-stone-700"></div>
+            <div class="dot h-2 w-2 rounded-full bg-stone-700"></div>
+          </div>
+        </div>
+
+        <div id="nossa-historia" class="mt-12 border-t border-amber-900/20 pt-8 text-center">
+          <h2 class="text-xl font-black text-amber-200 uppercase mb-4">Nossa História</h2>
+          <div class="relative mb-6 overflow-hidden rounded-[22px] border border-amber-900/30">
+            <img src="loja_equipe.webp" class="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-500">
+          </div>
+          <p class="text-[13px] leading-relaxed text-stone-200">A Baú Country nasceu para trazer a autenticidade do campo para o seu estilo de vida. Qualidade que atravessa gerações.</p>
+        </div>
+
+        <div class="space-y-4 text-center">
+            <p class="text-[13px] leading-relaxed text-stone-200">A <span class="text-amber-300 font-bold">Baú Country</span> nasceu da paixão pela vida no campo e da tradição sertaneja.</p>
+            <p class="text-[13px] leading-relaxed text-stone-200">Selecionamos cada peça para garantir que você tenha o melhor da moda rústica, aliando conforto, durabilidade e autenticidade. Nossa missão é vestir você com o orgulho de ser country.</p>
+            <p class="text-[13px] leading-relaxed text-amber-400 italic font-medium">"Qualidade e Tradição que atravessam gerações."</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const logo = document.getElementById('logo');
+      const scale = Math.max(0.72, 1 - scrollY * 0.0012);
+      const translateY = Math.min(scrollY * 0.18, 30);
+      const opacity = Math.max(0.82, 1 - scrollY * 0.001);
+      logo.style.transform = `translateY(-${translateY}px) scale(${scale})`;
+      logo.style.opacity = opacity;
+    });
+
+    const track = document.getElementById('track');
+    const dots = document.querySelectorAll('.dot');
+    let index = 0;
+    const totalSlides = 4;
+
+    function updateCarousel() {
+      track.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    }
+
+    function next() { index = (index + 1) % totalSlides; updateCarousel(); }
+    function prev() { index = (index === 0) ? totalSlides - 1 : index - 1; updateCarousel(); }
+
+    let timer = setInterval(next, 8000);
+  </script>
+</body>
+</html>
